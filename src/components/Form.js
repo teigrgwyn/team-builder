@@ -10,7 +10,7 @@ export default function Form(props) {
 
   return (
     <div className='form-component'>
-        <h3>Add Team Member</h3>
+        <h3>Add Team Member:</h3>
         <form onSubmit={onFormSubmit}>
           <StyledInput 
             placeholder="name"

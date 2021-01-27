@@ -15,28 +15,29 @@ const teamMembers = [
   // }
 ]
 
+const initialForm = {
+  name: 'name',
+  email: 'email',
+  role: 'role'
+}
+
 function App() {
-  const [formData, setFormData] = useState({ // form template expected
-    name: 'name',
-    email: 'email',
-    role: 'role'
-  });
+  const [formData, setFormData] = useState(initialForm); // form template expected for each user
 
   const onInputChange = event => {
     setFormData({ // format doesn't work for '.checked', does it?
       ...formData, [event.target.name]: event.target.value,
     })
-    console.log(formData);
   }
 
   const onFormSubmit = event => {
-    //event.preventDefault();
-    console.log("onFormSubmit");
+    event.preventDefault();
+    console.log(formData);
   }
 
   return (
     <div className="App">
-      <Form onInputChange={onInputChange} onFormSubmit={onFormSubmit} />
+      <Form formData={formData} onInputChange={onInputChange} onFormSubmit={onFormSubmit} />
       {teamMembers}
     </div>
   );
