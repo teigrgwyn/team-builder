@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
-//import Form from './components/Form';
+import Form from './components/Form';
 import Styled from 'styled-components';
 import './App.css';
 
-const StyledInput = Styled.input`
-  text-align: center;
+const StyledUser = Styled.div`
+  border: 1px solid crimson;
 `;
 
-const teamMembers = [
-  // {
-  //   name: 'Janice',
-  //   email: 'janice@gmail.com',
-  //   role: 'Director'
-  // },
-  // {
-  //   name: 'John',
-  //   email: 'john@gmail.com',
-  //   role: 'Team Lead'
-  // }
-]
-
-const initialForm = {
-  name: 'name',
-  email: 'email',
-  role: 'role'
+const initialState = {
+  name: '',
+  email: '',
+  role: ''
 }
 
 function App() {
-  const [formData, setFormData] = useState(initialForm); // form template expected for each user
+  const [userData] = useState([]); // state for everybody (like a global array)
+  const [formData, setFormData] = useState(initialState);
 
   const onInputChange = event => {
     setFormData({ // format doesn't work for '.checked', does it?
@@ -37,41 +25,21 @@ function App() {
 
   const onFormSubmit = event => {
     event.preventDefault();
-    teamMembers.push(formData);
-    console.log(teamMembers);
+    userData.push(formData);
+    setFormData(initialState);
   }
 
   return (
-    // <Form formData={formData} onInputChange={onInputChange} onFormSubmit={onFormSubmit} />
     <div className="App">
-      <div className='form-component'>
-        <h3>Add Team Member:</h3>
-        <form onSubmit={onFormSubmit}>
-          <StyledInput 
-            placeholder="name"
-            name='name'
-            onChange={onInputChange}
-          />
-          <StyledInput 
-            placeholder="email"
-            name='email'
-            onChange={onInputChange}
-          />
-          <StyledInput 
-            placeholder="role"
-            name='role'
-            onChange={onInputChange}
-          />
-          <input type='submit' />
-        </form>
-      </div>
+      <Form userData={userData} formData={formData} onInputChange={onInputChange} onFormSubmit={onFormSubmit} />
+      <h3>Current Team Members:</h3>
       {
-        teamMembers.map(user => (
-          <div className='user'>
+        userData.map(user => (
+          <StyledUser className='user'>
             <h4>Name: {user.name}</h4>
             <h4>Email: {user.email}</h4>
             <h4>Role: {user.role}</h4>
-          </div>
+          </StyledUser>
         ))
       }
     </div>
